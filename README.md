@@ -1,97 +1,174 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Spirit of Volcano Lands 🌋
 
-# Getting Started
+A React Native mobile application that serves as your personal guide to the world's most fascinating volcanoes. Explore volcanic wonders, learn fascinating facts, discover ancient legends, and save your favorite discoveries.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- **Onboarding Experience**: Beautiful animated introduction with Sandra, your volcano guide
+- **Interactive World Map**: View volcano locations with interactive markers on a world map using react-native-maps
+- **Complete Volcano List**: Browse all 15 famous volcanoes with detailed information
+- **Volcano Collection**: Explore 15 famous volcanoes from around the world
+- **Legends & Myths**: Discover ancient stories and folklore about volcanoes
+- **Bookmarks**: Save your favorite volcanoes for easy access
+- **Beautiful Animations**: Smooth transitions and engaging user experience
+- **Dark Theme**: Eye-friendly dark interface with volcanic color scheme
+- **Levitating Navigation**: Modern bottom navigation with shadow effects
+- **Background Images**: PNG backgrounds on all screens for consistent volcanic theme
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Screenshots
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+The app includes:
+- **Onboarding**: 4-step introduction with Sandra
+- **Home**: Interactive world map and complete volcano list
+- **Volcano Detail**: Expanded information with coordinates and actions
+- **Legend**: Ancient stories and myths about each volcano
+- **Bookmarks**: Saved favorite volcanoes
+- **Info**: App information and features
 
-```sh
-# Using npm
+## Tech Stack
+
+- **React Native 0.80.0**
+- **TypeScript**
+- **React Navigation** for navigation
+- **React Native Reanimated** for animations
+- **AsyncStorage** for data persistence
+- **Redux Toolkit** for state management (ready for future use)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (>=18)
+- React Native CLI
+- Android Studio / Xcode
+- iOS Simulator or Android Emulator
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd SpiritLands
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Install iOS dependencies (iOS only):
+```bash
+cd ios && pod install && cd ..
+```
+
+4. Start the Metro bundler:
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+5. Run the app:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+**iOS:**
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+**Android:**
+```bash
+npm run android
+```
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## Project Structure
 
-## Step 3: Modify your app
+```
+src/
+├── screens/           # App screens
+│   ├── OnboardingScreen.tsx
+│   ├── HomeScreen.tsx
+│   ├── VolcanoDetailScreen.tsx
+│   ├── LegendScreen.tsx
+│   ├── BookmarksScreen.tsx
+│   └── InfoScreen.tsx
+├── types/             # TypeScript type definitions
+│   └── volcano.ts
+├── data/              # Static data
+│   └── volcanoes.ts
+└── components/        # Reusable components (future)
+```
 
-Now that you have successfully run the app, let's make changes!
+## Volcano Data
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+The app includes information about 15 famous volcanoes:
+- **Vesuvius** (Italy) - Famous for the 79 AD eruption
+- **Etna** (Italy) - Europe's highest active volcano
+- **Krakatau** (Indonesia) - 1883 catastrophic eruption
+- **Fujiyama** (Japan) - Sacred Japanese mountain
+- **Cotopaxi** (Ecuador) - One of the highest active volcanoes
+- **Kilauea** (Hawaii, USA) - One of the most active volcanoes
+- **Mauna Loa** (Hawaii, USA) - Largest active volcano on Earth
+- **Eyjafjallajökull** (Iceland) - 2010 eruption that paralyzed air traffic
+- **Popocatepetl** (Mexico) - Sacred Aztec mountain
+- **Santorini** (Greece) - Created the legend of Atlantis
+- **Villarrica** (Chile) - Popular tourist destination
+- **Aconcagua** (Argentina) - Highest mountain in South America
+- **Stromboli** (Italy) - "Lighthouse of the Mediterranean"
+- **Tamboro** (Indonesia) - Most powerful eruption in human history
+- **Nyiragongo** (DR Congo) - Largest lava lake in the world
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Animations
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+The app features smooth animations including:
+- **Fade In**: Elements appear with opacity transitions
+- **Slide Up**: Content slides up from below
+- **Scale**: Buttons scale in with bounce effects
+- **Staggered**: Multiple elements animate in sequence
 
-## Congratulations! :tada:
+## Color Scheme
 
-You've successfully run and modified your React Native App. :partying_face:
+- **Primary**: #ff6b35 (Volcanic Orange)
+- **Accent**: #ffd700 (Golden Yellow)
+- **Background**: #000000 (Deep Black)
+- **Surface**: #1a1a1a (Dark Gray)
+- **Text**: #ffffff (White)
 
-### Now what?
+## Map Features
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+The interactive world map includes:
+- **Real-time volcano locations** with precise coordinates
+- **Interactive markers** for all 15 volcanoes
+- **Search functionality** to find specific volcanoes
+- **Map type switching** (Hybrid, Satellite, Standard)
+- **Auto-centering** on selected volcanoes
+- **Callout information** showing volcano details
+- **Global view** with all volcano positions
 
-# Troubleshooting
+## Future Enhancements
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- GPS location features
+- Push notifications for volcanic activity
+- Social sharing capabilities
+- Offline mode
+- Multiple languages
+- AR volcano viewing
 
-# Learn More
+## Contributing
 
-To learn more about React Native, take a look at the following resources:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+- Inspired by the beauty and power of Earth's volcanoes
+- Created with ❤️ for volcano enthusiasts and nature lovers
+- Special thanks to Sandra, the virtual volcano guide
+
+---
+
+**Explore the fiery mountains and discover the power of nature! 🌋✨**
