@@ -19,7 +19,7 @@ const onboardingSteps: OnboardingStep[] = [
     title: 'AEROSPIRIT LANDS',
     description: '',
     buttonText: 'Start',
-    image: require('../assets/img/LOGO1.png'),
+    image: require('../assets/img/LOGO.png'),
   },
   {
     id: 2,

@@ -102,7 +102,7 @@ const LegendScreen: React.FC = () => {
           {/* Legend Icon */}
           <View style={styles.legendIconContainer}>
           <Image 
-            source={require('../assets/img/LOGO1.png')} 
+            source={require('../assets/img/LOGO.png')} 
             style={styles.backgroundImage}
             // resizeMode="cover"
             />
