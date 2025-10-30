@@ -16,7 +16,7 @@ import { useBookmarks } from '../context/BookmarksContext';
 import Share from 'react-native-share';
 
 interface RouteParams {
-  aircraft: Aircraft;
+  aircraft: Aircraft
 }
 
 type AircraftDetailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Legend'>;
