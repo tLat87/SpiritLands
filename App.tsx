@@ -9,11 +9,14 @@ import OnboardingScreen from './src/screens/OnboardingScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import BookmarksScreen from './src/screens/BookmarksScreen';
 import InfoScreen from './src/screens/InfoScreen';
-import VolcanoDetailScreen from './src/screens/VolcanoDetailScreen';
+import AircraftDetailScreen from './src/screens/AircraftDetailScreen';
 import LegendScreen from './src/screens/LegendScreen';
+import AircraftComparisonScreen from './src/screens/AircraftComparisonScreen';
+import AircraftQuizScreen from './src/screens/AircraftQuizScreen';
+import AircraftStatsScreen from './src/screens/AircraftStatsScreen';
 
 // Types
-import { Volcano } from './src/types/volcano';
+import { Aircraft } from './src/types/volcano';
 import { RootStackParamList, TabParamList } from './src/types/navigation';
 
 // Context
@@ -138,8 +141,11 @@ function App() {
             {(props) => <OnboardingScreen {...props} onComplete={() => {}} />}
           </Stack.Screen>
           <Stack.Screen name="MainTabs" component={TabNavigator} />
-          <Stack.Screen name="VolcanoDetail" component={VolcanoDetailScreen} />
+          <Stack.Screen name="AircraftDetail" component={AircraftDetailScreen} />
           <Stack.Screen name="Legend" component={LegendScreen} />
+          <Stack.Screen name="AircraftComparison" component={AircraftComparisonScreen} />
+          <Stack.Screen name="AircraftQuiz" component={AircraftQuizScreen} />
+          <Stack.Screen name="AircraftStats" component={AircraftStatsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </BookmarksProvider>

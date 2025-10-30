@@ -11,15 +11,15 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
-import { volcanoes } from '../data/volcanoes';
-import { Volcano } from '../types/volcano';
+import { aircraft } from '../data/aircraft';
+import { Aircraft } from '../types/volcano';
 import { useBookmarks } from '../context/BookmarksContext';
 
-type BookmarksScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'VolcanoDetail' | 'MainTabs'>;
+type BookmarksScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'AircraftDetail' | 'MainTabs'>;
 
 const BookmarksScreen: React.FC = () => {
   const navigation = useNavigation<BookmarksScreenNavigationProp>();
-  const { bookmarkedVolcanoes, removeBookmark } = useBookmarks();
+  const { bookmarkedAircraft, removeBookmark } = useBookmarks();
   const [fadeAnim] = useState(new Animated.Value(0));
   const [slideAnim] = useState(new Animated.Value(50));
 
@@ -39,19 +39,19 @@ const BookmarksScreen: React.FC = () => {
     ]).start();
   }, []);
 
-  const handleVolcanoPress = (volcano: Volcano) => {
-    navigation.navigate('VolcanoDetail', { volcano });
+  const handleAircraftPress = (aircraft: Aircraft) => {
+    navigation.navigate('AircraftDetail', { aircraft });
   };
 
-  const handleRemoveBookmark = (volcanoId: string) => {
-    removeBookmark(volcanoId);
+  const handleRemoveBookmark = (aircraftId: string) => {
+    removeBookmark(aircraftId);
   };
 
-  const renderBookmarkedVolcano = (volcano: Volcano) => (
+  const renderBookmarkedAircraft = (aircraft: Aircraft) => (
     <Animated.View
-      key={volcano.id}
+      key={aircraft.id}
       style={[
-        styles.volcanoCard,
+        styles.aircraftCard,
         {
           opacity: fadeAnim,
           transform: [{ translateY: slideAnim }],
@@ -59,24 +59,24 @@ const BookmarksScreen: React.FC = () => {
       ]}
     >
       <TouchableOpacity
-        style={styles.volcanoContent}
-        onPress={() => handleVolcanoPress(volcano)}
+        style={styles.aircraftContent}
+        onPress={() => handleAircraftPress(aircraft)}
       >
-        <View style={styles.volcanoImageContainer}>
-          <Image source={volcano.image} style={styles.volcanoImage} />
+        <View style={styles.aircraftImageContainer}>
+          <Image source={aircraft.image} style={styles.aircraftImage} />
         </View>
-        <View style={styles.volcanoInfo}>
-          <Text style={styles.volcanoTitle}>{volcano.name}</Text>
-          <Text style={styles.volcanoLocation}>{volcano.country}</Text>
-          <Text style={styles.volcanoDescription} numberOfLines={2}>
-            {volcano.description}
+        <View style={styles.aircraftInfo}>
+          <Text style={styles.aircraftTitle}>{aircraft.name}</Text>
+          <Text style={styles.aircraftManufacturer}>{aircraft.manufacturer}</Text>
+          <Text style={styles.aircraftDescription} numberOfLines={2}>
+            {aircraft.description}
           </Text>
         </View>
       </TouchableOpacity>
       
       <TouchableOpacity
         style={styles.removeButton}
-        onPress={() => handleRemoveBookmark(volcano.id)}
+        onPress={() => handleRemoveBookmark(aircraft.id)}
       >
         <Text style={styles.removeButtonText}>✕</Text>
       </TouchableOpacity>
@@ -98,14 +98,9 @@ const BookmarksScreen: React.FC = () => {
       </View>
       <Text style={styles.emptyTitle}>No bookmarks yet</Text>
       <Text style={styles.emptyDescription}>
-        Start exploring volcanoes and save your favorites to see them here!
+        Start exploring aircraft and save your favorites to see them here!
       </Text>
-      <TouchableOpacity
-        style={styles.exploreButton}
-        onPress={() => (navigation as any).navigate('MainTabs')}
-      >
-        <Text style={styles.exploreButtonText}>Explore Volcanoes</Text>
-      </TouchableOpacity>
+      
     </Animated.View>
   );
 
@@ -123,7 +118,7 @@ const BookmarksScreen: React.FC = () => {
       
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Bookmarks</Text>
-        <Text style={styles.headerSubtitle}>Your favorite volcanoes</Text>
+        <Text style={styles.headerSubtitle}>Your favorite aircraft</Text>
       </View>
 
       <ScrollView
@@ -131,8 +126,8 @@ const BookmarksScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {bookmarkedVolcanoes.length > 0 ? (
-          bookmarkedVolcanoes.map(renderBookmarkedVolcano)
+        {bookmarkedAircraft.length > 0 ? (
+          bookmarkedAircraft.map(renderBookmarkedAircraft)
         ) : (
           renderEmptyState()
         )}
@@ -193,7 +188,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 0,
   },
-  volcanoCard: {
+  aircraftCard: {
     backgroundColor: '#1a1a1a',
     borderRadius: 15,
     borderWidth: 2,
@@ -202,40 +197,40 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     flexDirection: 'row',
   },
-  volcanoContent: {
+  aircraftContent: {
     flex: 1,
     flexDirection: 'row',
   },
-  volcanoImageContainer: {
+  aircraftImageContainer: {
     width: 120,
     height: 120,
     backgroundColor: '#333333',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  volcanoImage: {
+  aircraftImage: {
     width: '100%',
     height: '100%',
     backgroundColor: '#ff6b35',
     opacity: 0.7,
   },
-  volcanoInfo: {
+  aircraftInfo: {
     flex: 1,
     padding: 15,
     justifyContent: 'center',
   },
-  volcanoTitle: {
+  aircraftTitle: {
     color: '#ffffff',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  volcanoLocation: {
+  aircraftManufacturer: {
     color: '#FF0000',
     fontSize: 14,
     marginBottom: 8,
   },
-  volcanoDescription: {
+  aircraftDescription: {
     color: '#cccccc',
     fontSize: 14,
     lineHeight: 18,

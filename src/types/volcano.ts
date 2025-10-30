@@ -1,3 +1,23 @@
+export interface Aircraft {
+  id: string;
+  name: string;
+  manufacturer: string;
+  country: string;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  maxSpeed: number;
+  description: string;
+  history: string;
+  image: any;
+  isBookmarked: boolean;
+  facts: string[];
+  firstFlight?: string;
+  type: 'fighter' | 'passenger' | 'cargo' | 'military';
+}
+
+// Keep Volcano interface for backward compatibility
 export interface Volcano {
   id: string;
   name: string;
@@ -22,6 +42,7 @@ export interface OnboardingStep {
   title: string;
   description: string;
   buttonText: string;
+  image?: any;
   character?: {
     name: string;
     image: string;

@@ -12,17 +12,20 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/navigation';
 import { Aircraft } from '../types/volcano';
+import { useBookmarks } from '../context/BookmarksContext';
+import Share from 'react-native-share';
 
 interface RouteParams {
   aircraft: Aircraft;
 }
 
-type LegendScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+type AircraftDetailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Legend'>;
 
-const LegendScreen: React.FC = () => {
-  const navigation = useNavigation<LegendScreenNavigationProp>();
+const AircraftDetailScreen: React.FC = () => {
+  const navigation = useNavigation<AircraftDetailScreenNavigationProp>();
   const route = useRoute();
   const { aircraft } = route.params as RouteParams;
+  const { isBookmarked: isAircraftBookmarked, toggleBookmark } = useBookmarks();
   
   const [fadeAnim] = useState(new Animated.Value(0));
   const [slideAnim] = useState(new Animated.Value(50));
@@ -50,14 +53,24 @@ const LegendScreen: React.FC = () => {
     ]).start();
   }, []);
 
-  const handleShare = () => {
-    // Share functionality would go here
-    console.log('Sharing history for:', aircraft.name);
+  const handleBookmark = () => {
+    toggleBookmark(aircraft);
   };
 
-  const handleBookmark = () => {
-    // Bookmark functionality would go here
-    console.log('Bookmarking history for:', aircraft.name);
+  const handleShare = async () => {
+    try {
+      const shareOptions = {
+        title: `Aircraft: ${aircraft.name}`,
+        message: `Check out this amazing aircraft: ${aircraft.name} by ${aircraft.manufacturer}! ${aircraft.description}`,
+      };
+      await Share.open(shareOptions);
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  };
+
+  const handleLegend = () => {
+    navigation.navigate('Legend', { aircraft });
   };
 
   const handleClose = () => {
@@ -73,7 +86,7 @@ const LegendScreen: React.FC = () => {
           style={styles.backgroundImage}
           resizeMode="cover"
         />
-        {/* <View style={styles.overlay} /> */}
+        <View style={styles.overlay} />
       </View>
       
       <ScrollView
@@ -81,40 +94,53 @@ const LegendScreen: React.FC = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Legend Card */}
+        {/* Aircraft Detail Card */}
         <Animated.View
           style={[
-            styles.legendCard,
+            styles.aircraftCard,
             {
               opacity: fadeAnim,
               transform: [{ translateY: slideAnim }],
             },
           ]}
         >
-          {/* Header with back button */}
-          <View style={styles.cardHeader}>
-            {/* <TouchableOpacity style={styles.backButton} onPress={handleClose}>
-              <Text style={styles.backButtonText}>‹</Text>
-            </TouchableOpacity> */}
-            <Text style={styles.legendTitle}>{aircraft.name} ({aircraft.manufacturer}) History</Text>
+          {/* Aircraft Image */}
+          <View style={styles.aircraftImageContainer}>
+            <Image source={aircraft.image} style={styles.aircraftImage} />
           </View>
 
-          {/* Legend Icon */}
-          <View style={styles.legendIconContainer}>
-          <Image 
-            source={require('../assets/img/LOGO1.png')} 
-            style={styles.backgroundImage}
-            // resizeMode="cover"
-            />
-          </View>
+          {/* Aircraft Info */}
+          <View style={styles.aircraftInfo}>
+            <Text style={styles.aircraftTitle}>{aircraft.name}</Text>
+            <Text style={styles.aircraftManufacturer}>{aircraft.manufacturer} ({aircraft.country})</Text>
+            
+            {/* Coordinates */}
+            <Text style={styles.coordinates}>
+              {aircraft.coordinates.latitude.toFixed(3)}° N, {aircraft.coordinates.longitude.toFixed(3)}° E
+            </Text>
+            
+            {/* Description */}
+            <Text style={styles.description}>{aircraft.description}</Text>
 
-          {/* Legend Text */}
-          <View style={styles.legendTextContainer}>
-            <Text style={styles.legendText}>{aircraft.history}</Text>
+            {/* Action Buttons */}
+            <View style={styles.actionButtons}>
+              <TouchableOpacity style={styles.actionButton} onPress={handleLegend}>
+                <Image source={require('../assets/img/Icons/Vector.png')} style={styles.actionButtonImage} />
+              </TouchableOpacity>
+              
+              <TouchableOpacity style={styles.actionButton} onPress={handleShare}>
+              <Image source={require('../assets/img/Icons/Vector-1.png')} style={styles.actionButtonImage} />
+                
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                  style={[styles.actionButton, isAircraftBookmarked(aircraft.id) && styles.bookmarkedButton]} 
+                  onPress={handleBookmark}
+                >
+                  <Image source={require('../assets/img/Icons/Vector-2.png')} style={styles.actionButtonImage} />
+                </TouchableOpacity>
+            </View>
           </View>
-
-          {/* Action Buttons */}
-          
         </Animated.View>
 
         {/* Close Button */}
@@ -149,10 +175,14 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   backgroundImage: {
-    width: 200,
-    height: 200,
-    borderRadius: 10,
-    // opacity: 0.8,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0.8,
   },
   overlay: {
     position: 'absolute',
@@ -160,7 +190,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    // backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   scrollView: {
     flex: 1,
@@ -170,7 +199,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     alignItems: 'center',
   },
-  legendCard: {
+  aircraftCard: {
     backgroundColor: '#000',
     borderRadius: 15,
     borderWidth: 2,
@@ -179,82 +208,75 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 400,
   },
-  cardHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#333333',
-  },
-  backButton: {
-    marginRight: 15,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#ff6b35',
+  aircraftImageContainer: {
+    height: 250,
+    backgroundColor: '#000',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backButtonText: {
+  aircraftImage: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#ff6b35',
+    opacity: 0.7,
+  },
+  aircraftInfo: {
+    padding: 20,
+  },
+  aircraftTitle: {
     color: '#ffffff',
     fontSize: 24,
     fontWeight: 'bold',
-  },
-  legendTitle: {
-    color: '#ffffff',
-    fontSize: 20,
-    fontWeight: 'bold',
-    flex: 1,
+    marginBottom: 5,
     textAlign: 'center',
   },
-  legendIconContainer: {
-    alignItems: 'center',
-    padding: 30,
+  aircraftManufacturer: {
+    color: '#FF0000',
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',
   },
-  legendIcon: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#ff6b35',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 4,
-    borderColor: '#FF0000',
+  coordinates: {
+    color: '#FF0000',
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+    fontFamily: 'monospace',
   },
-  legendIconText: {
-    fontSize: 40,
-  },
-  legendTextContainer: {
-    padding: 20,
-    paddingTop: 0,
-  },
-  legendText: {
+  description: {
     color: '#ffffff',
     fontSize: 16,
     lineHeight: 24,
+    marginBottom: 25,
     textAlign: 'justify',
   },
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    padding: 20,
-    paddingTop: 10,
   },
   actionButton: {
-    backgroundColor: '#ff6b35',
+    backgroundColor: '#FF0000',
     width: 50,
     height: 50,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#ffd700',
+    borderColor: '#FF0000',
+  },
+  bookmarkedButton: {
+    backgroundColor: '#FF0000',
   },
   actionButtonText: {
     color: '#ffffff',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  actionButtonImage: {
+    width: 24,
+    height: 24,
+    tintColor: '#ffffff',
   },
   closeButtonContainer: {
     marginTop: 40,
@@ -267,8 +289,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ffd700',
+    borderWidth: 3,
+    borderColor: '#FF0000',
   },
   closeButtonText: {
     color: '#ffffff',
@@ -277,4 +299,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LegendScreen;
+export default AircraftDetailScreen;
+

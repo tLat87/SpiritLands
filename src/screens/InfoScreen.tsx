@@ -40,9 +40,9 @@ const InfoScreen: React.FC = () => {
   const handleShare = async () => {
     try {
       const shareOptions = {
-        title: 'SpiritLands - Volcano Travel Guide',
-        message: 'Check out this amazing volcano travel app! Explore the world\'s most fascinating volcanoes with interactive maps, legends, and facts.',
-        url: 'https://spiritlands.com', // Replace with your app URL
+        title: 'AeroSpirit - Aircraft Collection Guide',
+        message: 'Check out this amazing aircraft collection app! Explore the world\'s most fascinating aircraft with interactive maps, history, and facts.',
+        url: 'https://aerospirit.com', // Replace with your app URL
       };
       await Share.open(shareOptions);
     } catch (error) {
@@ -115,10 +115,10 @@ const InfoScreen: React.FC = () => {
           ]}
         >
           <Text style={styles.description}>
-            Spirit of Volcano Lands is your personal guide to the world of volcanoes. 
-            The app features top volcanoes from around the world, interesting facts, 
-            legends, and the ability to save your favorite discoveries. Immerse yourself 
-            in the world of fiery mountains with Sandra and discover the power and beauty of nature.
+            AeroSpirit is your personal guide to the world of aircraft. 
+            The app features top aircraft from around the world, interesting facts, 
+            history, and the ability to save your favorite discoveries. Immerse yourself 
+            in the world of aviation with Alex and discover the power and engineering marvels of flight.
           </Text>
         </Animated.View>
 
@@ -155,12 +155,12 @@ const InfoScreen: React.FC = () => {
         >
           <Text style={styles.featuresTitle}>App Features</Text>
           <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>🌋</Text>
-            <Text style={styles.featureText}>Explore famous volcanoes worldwide</Text>
+            <Text style={styles.featureIcon}>✈️</Text>
+            <Text style={styles.featureText}>Explore famous aircraft worldwide</Text>
           </View>
           <View style={styles.featureItem}>
             <Text style={styles.featureIcon}>📚</Text>
-            <Text style={styles.featureText}>Learn fascinating facts and legends</Text>
+            <Text style={styles.featureText}>Learn fascinating facts and history</Text>
           </View>
           <View style={styles.featureItem}>
             <Text style={styles.featureIcon}>🔖</Text>

@@ -16,24 +16,24 @@ const { width, height } = Dimensions.get('window');
 const onboardingSteps: OnboardingStep[] = [
   {
     id: 1,
-    title: 'SPIRIT OF VOLCANO LANDS',
+    title: 'AEROSPIRIT LANDS',
     description: '',
     buttonText: 'Start',
     image: require('../assets/img/LOGO1.png'),
   },
   {
     id: 2,
-    title: "HI, I'M SANDRA!",
+    title: "HI, I'M ALEX!",
     description:
-      'Your guide to the world of the greatest volcanoes. Together we will discover their power and beauty.',
-    buttonText: 'Hello, Sandra!',
+      'Your guide to the world of the greatest aircraft. Together we will discover their power and engineering marvels.',
+    buttonText: 'Hello, Alex!',
     image: require('../assets/img/Onboard/image5.png'),
   },
   {
     id: 3,
     title: 'AMAZING FACTS',
     description:
-      "I'll show you incredible stories and legends about volcanoes that have shaped the planet over millennia.",
+      "I'll show you incredible stories and history about aircraft that have shaped aviation over decades.",
     buttonText: 'Continue!',
     image: require('../assets/img/Onboard/image6.png'),
   },
@@ -41,7 +41,7 @@ const onboardingSteps: OnboardingStep[] = [
     id: 4,
     title: 'YOUR COLLECTION',
     description:
-      "Save your favorite volcanoes in your collection and return to them whenever you want. Let's begin the journey!",
+      "Save your favorite aircraft in your collection and return to them whenever you want. Let's begin the journey!",
     buttonText: 'Start!',
     image: require('../assets/img/Onboard/image7.png'),
   },

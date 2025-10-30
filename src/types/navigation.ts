@@ -1,11 +1,16 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { Volcano } from './volcano';
+import { Volcano, Aircraft } from './volcano';
 
 export type RootStackParamList = {
   Onboarding: undefined;
   MainTabs: NavigatorScreenParams<TabParamList>;
+  AircraftDetail: { aircraft: Aircraft };
+  Legend: { aircraft: Aircraft };
+  AircraftComparison: undefined;
+  AircraftQuiz: undefined;
+  AircraftStats: undefined;
+  // Keep old routes for backward compatibility
   VolcanoDetail: { volcano: Volcano };
-  Legend: { volcano: Volcano };
 };
 
 export type TabParamList = {
